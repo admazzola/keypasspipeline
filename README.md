@@ -10,7 +10,8 @@ I built this pipeline bot so that I can use custom JSONRPC calls from Ruby on Ra
 ## Requirements
 You will need a Geth instance open which this bot will communicate with. Do this using:
 
-      geth --fast --rpc
+geth --fast --rpc --rpcport 9545
+
 
 ## Getting Started
 

@@ -18,14 +18,17 @@ module.exports = {
 
 
      path = require('path');
-     filePath = path.join(__dirname, 'contracts/CryptoPunksMarket.abi');
+     ethergoodsFilePath = path.join(__dirname, 'contracts/EtherGoods.json');
+     var contract_abi_json = await readwrite.readFile(ethergoodsFilePath, 'utf8');
+     var contract_abi = JSON.parse(contract_abi_json).abi;
+
+     deploymentsFilePath = path.join(__dirname, 'contracts/DeployedContractInfo.json');
+     var deployments_json = await readwrite.readFile(deploymentsFilePath, 'utf8');
+     var contract_address = JSON.parse(deployments_json).contracts.ethergoods.blockchain_address;
 
 
-     var contract_abi_json = await readwrite.readFile(filePath, 'utf8');
-     var contract_abi = JSON.parse(contract_abi_json);
-
-
-     this.readPunkOwnersFromContract(contract_abi);
+     this.readGoodTypesFromContract(contract_abi,contract_address)
+    // this.readPunkOwnersFromContract(contract_abi);
 
      /*
      var contract_abi = "";
@@ -44,6 +47,76 @@ module.exports = {
 
 
    },
+
+   readGoodTypesFromContract(contract_abi,contract_address)
+   {
+       console.log('loading contract');
+       var contractInstance = web3.eth.contract(contract_abi).at(contract_address);
+
+
+       let tempGoodTypes = {}
+
+
+       this.pollAllGoodTypes(contractInstance,tempGoodTypes);
+
+
+
+   },
+
+
+
+   async pollAllGoodTypes(contractInstance, tempGoodTypes ) {
+
+     console.log('have contract instance ')
+    // console.log(contractInstance);
+
+
+
+     var goodTypesCount = await contractInstance.getGoodTypesCount();
+     console.log(goodTypesCount.toNumber())
+
+     for(var i=0;i<goodTypesCount;i++)
+     {
+       var goodTypesIndex = await contractInstance.goodTypesIndex(i);
+       console.log(goodTypesIndex.toNumber() )
+     }
+
+
+     /*
+
+        if(number_of_punks_found < 10000) {
+
+
+           this.pollNextPunk(contractInstance, tempPunkOwners, function(){
+             this.pollAllPunks(contractInstance, tempPunkOwners)
+           }.bind(this) );
+
+           //  setTimeout(pollAllPunks(contractInstance), 10);
+
+        } else {
+
+            console.log('collected all punks ')
+
+            console.log(punkOwners[43])
+
+            punkOwnersCollected = true;
+
+           punkOwners = this.clone(tempPunkOwners);
+
+          //save to file
+          fs.writeFile('./punkownerdata.json', JSON.stringify(punkOwners, null, 2) , 'utf-8', function(error,written,buffer){
+            console.log('Completed collection of punk owners.')
+
+
+            this.resetAndRestartPunkCollection(contractInstance);
+            //wait and then poll all punks again !
+
+          }.bind(this));
+
+
+        }
+        */
+    },
 
 
 
@@ -113,8 +186,6 @@ module.exports = {
              //wait and then poll all punks again !
 
            }.bind(this));
-
-
 
 
          }

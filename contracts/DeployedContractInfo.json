@@ -1,7 +1,7 @@
 {
   "network-name":"Ropsten",
   "contracts": {
-      "ethergoods": {"name":"EtherGoods", "blockchain_address":"0xe430df7e3a8cac41fd656a25ba3144c48ae6726e"},
+      "ethergoods": {"name":"EtherGoods", "blockchain_address":"0xe399d5f0dc232b4ea40c19ea0924714ae2e2bdfd"},
       "goodtoken": {"name":"GoodToken", "blockchain_address":"0x8fe8ab13afc9b2e4184b0fd5ce24e3c0cbdaa85b"},
       "tokenmarket": {"name":"BasicNFTTokenMarket", "blockchain_address":"0x1caed8f568d6dde66e9e855da192cf889803dcc0"}
   }
