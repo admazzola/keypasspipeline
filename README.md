@@ -12,6 +12,9 @@ You will need a Geth instance open which this bot will communicate with. Do this
 
 geth --fast --rpc --rpcport 9545
 
+OR
+
+geth --testnet --networkid 3 --fast --rpc --rpcport 9545
 
 ## Getting Started
 
