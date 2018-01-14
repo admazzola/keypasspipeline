@@ -3,24 +3,28 @@ This node bot will continuously pull data stored in an Ethereum SmartContract, w
 
 I built this pipeline bot so that I can use custom JSONRPC calls from Ruby on Rails to indirectly access smart contract token storage data.  There are not many good Ethereum/Geth interfacing libraries for ruby and I expect the same is true for other programming languages so this bot acts as a middleman!  
 
-## Requirements 
-You will need a Geth instance open which this bot will communicate with. Do this using: 
+
+1. Need to add async
+
+
+## Requirements
+You will need a Geth instance open which this bot will communicate with. Do this using:
 
       geth --fast --rpc
 
 ## Getting Started
 
  Start the pipeline bot with this command:
- 
-      node index.js 
-    
-    
+
+      node index.js
+
+
 ## Reading the data from the pipeline using any programming language
 
 Acquire the contract token data using JSONRPC in any language (python, ruby, go, etc...). The JSONRPC calls are as follows:
 
     1. getPunkOwner(punk_id_int): returns eth_address_string
-      
+
  Example ruby code that pulls data from the pipeline bot using the ruby JSONRPC client lib named 'Jimson'
 
       def import_punk_data
@@ -29,8 +33,8 @@ Acquire the contract token data using JSONRPC in any language (python, ruby, go,
           p 'client launched '
 
          (0..9999).each do |punk_id|
-           result = client.getPunkOwner(punk_id) 
+           result = client.getPunkOwner(punk_id)
            p punk_id
            p result   #prints out the ethereum public address of each punk owner           
-         end 
+         end
        end
